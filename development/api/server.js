@@ -7,7 +7,7 @@ const app = express();
 
 const password = 'Carol1234';
 const uri = `mongodb+srv://carol:${password}@cluster0.8rd9p.mongodb.net/?retryWrites=true&w=majority`;
-const mongo = new MongoClient(uri);
+const mongo = new MongoClient(uri, {useUnifiedTopology: true});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -18,6 +18,7 @@ mongo.connect(function (err) {
         console.log("successfully connected to database!" );
     } else {
         console.log("error connecting to database.");
+        console.log(err);
     }
 
     const db = mongo.db('Tromance-app');
@@ -33,6 +34,8 @@ mongo.connect(function (err) {
                response.status(400).send(error.message);
            })
     });
+
+
 
 });
 
