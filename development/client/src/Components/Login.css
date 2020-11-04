@@ -1,0 +1,8 @@
+.wave-container {
+  background: #fff;
+  width: 100%;
+  height: 100%;
+}
+.wave-container > svg {
+  display: block;
+}
