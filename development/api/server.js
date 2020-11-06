@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const {MongoClient} = require('mongodb');
-const explore = require('./node_modules/explore/explore')
+const explore = require('./modules/explore')
 
 var cors = require('cors');
 const app = express();
