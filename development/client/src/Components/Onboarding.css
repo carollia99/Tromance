@@ -1,0 +1,244 @@
+h1 {
+    margin-top: 180px;
+    font-size: 32px;
+    font-family: Avenir;
+    font-weight: bolder;
+}
+h2{
+    font-size: 18px;
+    line-height: 1.6;
+    font-weight: normal;
+    max-width: 440px;
+    margin: auto;
+    left: 0;
+    right: 0;
+}
+h3 {
+    margin-top: 1px;
+    margin-left: -175px;
+    font-size: 16px;
+    font-family: Avenir;
+    font-weight: normal;
+    color: red;
+}
+
+#logo {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    max-width: 10%;
+}
+
+#progress_bar1{
+    position: absolute;
+    margin: auto;
+    top: 600px;
+    left: 0;
+    right: 0;
+    max-width: 300px;
+}
+#progress_bar2{
+    position: absolute;
+    margin: auto;
+    top: 760px;
+    left: 0;
+    right: 0;
+    max-width: 300px;
+}
+#progress_bar3{
+    position: absolute;
+    margin: auto;
+    top: 600px;
+    left: 0;
+    right: 0;
+    max-width: 300px;
+}
+#progress_bar4{
+    position: absolute;
+    margin: auto;
+    top: 600px;
+    left: 0;
+    right: 0;
+    max-width: 300px;
+}
+
+#nextButton {
+    margin-top: 40px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-height: auto;
+    max-width: 200px;
+    opacity: 80%;
+    background: white;
+    transition: all .2s ease-in-out;
+}
+
+#nextButton:focus {outline:0;}
+
+#nextButton:hover {
+    opacity: 100%;
+}
+
+input{
+    margin-top: 20px;
+    border: none;
+    height: 40px;
+    width: 400px;
+    background-color: #F2F2F2;
+    padding-left: 10px;
+    border-radius: 5px;
+    font-weight: normal;
+    font-size: 16px;
+    font-family: Avenir;
+    font-style: italic;
+    font-color: #C5C5C5;
+}
+
+#largeInput{
+    margin-top: 20px;
+    padding-top: 7px;
+    border: none;
+    height: 80px;
+    width: 400px;
+    background-color: #F2F2F2;
+    padding-left: 10px;
+    border-radius: 5px;
+    font-weight: normal;
+    font-size: 16px;
+    font-family: Avenir;
+    font-style: italic;
+    font-color: #C5C5C5;
+}
+
+.fileUpload {
+    padding-top: 40px;
+    position: relative;
+    display: inline-block;
+}
+
+.inputFile{
+    margin-bottom: 20px;
+}
+.inputFile:hover{
+    cursor: pointer;
+}
+
+#inputFile {
+    font-size: 18px;
+    font-weight: normal;
+    font-family: Avenir;
+    color: #FF6584;
+    padding-bottom: 40px;
+    cursor:pointer;
+}
+
+.btn {
+    padding-top: 40px;
+    width: 200px;
+    border: none;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.01);
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: normal;
+    font-family: Avenir;
+}
+
+.btn:hover{
+    opacity: 80%;
+    cursor:pointer;
+}
+.fileUpload input[type = file]{
+    font-size: 100px;
+    font-family: Avenir;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
+
+.imageHolder {
+    width: 160px;
+    height: 160px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+    border-radius: 50%;
+    object-fit: cover;
+}
+#profile_placeholder {
+    height: 160px;
+    width: auto;
+    object-fit: cover;
+}
+
+#profile_pic {
+    height: 160px;
+    width: auto;
+    object-fit: cover;
+}
+
+a {
+    color: #FF6584;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+
+.dropbtn {
+    margin-top: 40px;
+    margin-bottom: 10px;
+    width: 260px;
+    border: none;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.01);
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: normal;
+    font-family: Avenir;
+    cursor: pointer;
+}
+#arrow{
+    margin-left: 20px;
+    max-width: 15px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    height:200px;
+    overflow-y: scroll;
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 260px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.01);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color:  #f9f9f9}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color:  #white;
+}
+
+
