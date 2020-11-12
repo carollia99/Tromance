@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const {MongoClient} = require('mongodb');
+const explore = require('./modules/explore')
 
 var cors = require('cors');
 const app = express();
@@ -33,6 +34,27 @@ mongo.connect(function (err) {
            .catch((error) => {
                response.status(400).send(error.message);
            })
+    });
+
+
+    app.post('/explore', (request, response) => {
+        const username = request.body.username;
+        const query = {'username': username};
+        var toCompare;
+        db.collection('Users').find(query)
+            .toArray(function(err,result) {
+                if (err) throw err;
+                toCompare = result[0];
+            });
+        const query2 = {'username': { $ne : username }}
+        db.collection('Users').find(query2)
+            .toArray()
+            .then((result) => {
+                response.status(200).json(explore.sortUsers(result, toCompare));
+            })
+            .catch((error) => {
+                response.status(400).send(error.message);
+            })
     });
 
 
