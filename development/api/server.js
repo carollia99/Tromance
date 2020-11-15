@@ -4,6 +4,8 @@ const {MongoClient} = require('mongodb');
 const explore = require('./modules/explore')
 
 //const stream = require('getstream');
+//const ObjectID = require('mongodb').ObjectID;
+//const passport = require('passport');
 
 var cors = require('cors');
 const app = express();
@@ -60,10 +62,8 @@ mongo.connect(function (err) {
     });
 
     app.post('/profile', (request, response) => {
-        console.log("Viewing Profile");
+        //console.log("Viewing Profile");
         const username = request.body.username;
-        //how to handle invalid username
-        //parseerror, return 400 status (page not found error)
         const query = {'username': username};
         db.collection('Users').find(query)
             .toArray() //returns users as array
@@ -76,7 +76,14 @@ mongo.connect(function (err) {
             })
     });
 
-    //app.post('/updateprofile', (request, response) => {
+    app.post('/updateprofile', (req, res, next) => {
+        const query = { 'Users': req.body};
+        const query1 = { $set: req.body };
+        db.collection('Users').updateOne(query, query1 , function(err, res) {
+            if (err) throw err;
+            console.log(res.result.nModified + " fields updated");
+        });
+    });
     /*
     app.post('/updateprofile', async (request, response, next) => {
         const client = stream.connect('v2692basaucu',
@@ -109,7 +116,6 @@ mongo.connect(function (err) {
         }
 
     });
-
      */
 
 
