@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 import './Login.css';
 
 function Login() {
+    const history = useHistory();
+    
     return (
         <div className="wave-container" style={{width: "100%", height: "100%"}}>
             {/* <svg style={{position: "absolute", top: "51%", left: 0, zIndex: 1}} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
@@ -30,7 +32,7 @@ function Login() {
                             Find love on campus
                         </div>
                         <div className="button" style={{cursor: "pointer", height: "60px", width: "280px", backgroundColor: "#FF6584", display: "flex", justifyContent: "center", alignItems: "center", borderRadius: "10px", marginTop: "48px"}}>
-                            <div style={{fontSize: "18px", color: "white"}}>Sign up with USC email</div>
+                            <div onClick={() => history.push("/onboarding")} style={{fontSize: "18px", color: "white"}}>Sign up with USC email</div>
                         </div>
                         <div className="subText" style={{fontSize: "18px", marginTop: "16px", width: "280px", textAlign: "center"}}>
                             Login
