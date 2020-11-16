@@ -46,12 +46,16 @@ var pTypes = {
 }
 
 exports.getCorrelation = function(user1, user2) {
-    var personality1 = pTypes[user1["info"]["personality"]];
-    var personality2 = pTypes[user2["info"]["personality"]];
-    var score = 1 * compatibility[personality1][personality2];
+    var personality1 = pTypes[user1["personality"]];
+    var personality2 = pTypes[user2["personality"]];
+    var score = 0;
+    if (personality1 != null && personality2 != null) {
+        score = 1 * compatibility[personality1][personality2];
+    }
     //score = 0;
     var responses1 = user1['responses'];
     var responses2 = user2['responses'];
+    if (responses1 == null || responses2 == null) return score;
     for (const[key, val] of Object.entries(responses1)) {
         if (val == responses2[key]) score++;
     }
