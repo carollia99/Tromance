@@ -3,6 +3,10 @@ const bodyParser = require('body-parser');
 const {MongoClient} = require('mongodb');
 const explore = require('./modules/explore')
 
+//const stream = require('getstream');
+//const ObjectID = require('mongodb').ObjectID;
+//const passport = require('passport');
+
 var cors = require('cors');
 const app = express();
 
@@ -56,6 +60,67 @@ mongo.connect(function (err) {
                 response.status(400).send(error.message);
             })
     });
+
+    app.post('/profile', (request, response) => {
+        //console.log("Viewing Profile");
+        const username = request.body.username;
+        const query = {'username': username};
+        db.collection('Users').find(query)
+            .toArray() //returns users as array
+            //promise
+            .then((result) => {
+                response.status(200).json(result[0]);
+            })
+            .catch((error) => {
+                response.status(400).send(error.message);
+            })
+    });
+
+    app.post('/updateprofile', (req, response, next) => {
+        const query = { 'username': req.body.username};
+        const query1 = { $set: req.body };
+        db.collection('Users').updateOne(query, query1 , function(err, res) {
+            if (err) {
+                console.log(err);
+                //throw err;
+            }
+            console.log(res.result.nModified + " fields updated");
+            response.status(200).json("Success");
+        });
+    });
+    /*
+    app.post('/updateprofile', async (request, response, next) => {
+        const client = stream.connect('v2692basaucu',
+            'pf7wgbvwdur5ja8vqtgzkgruvs7qkym54q8yg6hkmhbtkcxfd2dgvcea9nj8tb32',
+            '76203'
+        const user = request.body.username;
+        const age = request.body.age;
+
+        let timeline;
+        try {
+            timeline = await client.feed("timeline", user);
+            await timeline.age("timeline", age);
+        } catch (err){
+            console.log(err);
+            return next(err);
+        }
+        // Update age
+        try {
+            await db.collection('Users').updateOne(
+                {username: user},
+                {$pull: {'age': age}},
+            )
+            await db.collection('Users').updateOne(
+                { username: age },
+                {$pull: {'age' : user}},
+            )
+        } catch(err){
+            console.error(err);
+            return next(err);
+        }
+
+    });
+     */
 
 
 
