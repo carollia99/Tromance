@@ -2,6 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const {MongoClient} = require('mongodb');
 const explore = require('./modules/explore')
+const passport = require("passport");
+
+const users = require("./routes/api/users");
 
 //const stream = require('getstream');
 //const ObjectID = require('mongodb').ObjectID;
@@ -61,6 +64,7 @@ mongo.connect(function (err) {
             })
     });
 
+<<<<<<< Updated upstream
     app.post('/profile', (request, response) => {
         //console.log("Viewing Profile");
         const username = request.body.username;
@@ -123,6 +127,14 @@ mongo.connect(function (err) {
      */
 
 
+=======
+    // Passport middleware
+    app.use(passport.initialize());
+    // Passport config
+    require("./config/passport")(passport);
+    // Routes
+    app.use("/api/users", users);
+>>>>>>> Stashed changes
 
 });
 
