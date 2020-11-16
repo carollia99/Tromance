@@ -46,6 +46,7 @@ var pTypes = {
 }
 
 exports.getCorrelation = function(user1, user2) {
+    if (user1 == null || user2 == null) return 0;
     var personality1 = pTypes[user1["personality"]];
     var personality2 = pTypes[user2["personality"]];
     var score = 0;

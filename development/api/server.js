@@ -64,9 +64,14 @@ mongo.connect(function (err) {
             })
     });
 
-    app.post('/profile', (request, response) => {
+    app.post('/profile/:id', (request, response) => {
         //console.log("Viewing Profile");
-        const username = request.body.username;
+        const username = request.params.id;
+        const usernameToCompare = request.body.username;
+        var toCompare;
+        db.collection('Users').findOne({'username': usernameToCompare}).then((result) => {
+            toCompare = result;
+        })
         const query = {'username': username};
         db.collection('Users').find(query)
             .toArray() //returns users as array
@@ -75,6 +80,8 @@ mongo.connect(function (err) {
                 if (result.length <= 0) {
                     return response.status(404).json("Fail");
                 }
+                result[0]["compatibility"] = 0;
+                if (toCompare != null) result[0]["compatibility"] = explore.getCorrelation(result[0], toCompare) * 100 / 4;
                 response.status(200).json(result[0]);
             })
             .catch((error) => {
