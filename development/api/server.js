@@ -64,7 +64,6 @@ mongo.connect(function (err) {
             })
     });
 
-<<<<<<< Updated upstream
     app.post('/profile', (request, response) => {
         //console.log("Viewing Profile");
         const username = request.body.username;
@@ -127,14 +126,12 @@ mongo.connect(function (err) {
      */
 
 
-=======
     // Passport middleware
     app.use(passport.initialize());
     // Passport config
     require("./config/passport")(passport);
     // Routes
     app.use("/api/users", users);
->>>>>>> Stashed changes
 
 });
 
