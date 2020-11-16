@@ -77,11 +77,15 @@ mongo.connect(function (err) {
     });
 
     app.post('/updateprofile', (req, res, next) => {
-        const query = { 'Users': req.body};
+        const query = { 'Users': req.body.username};
         const query1 = { $set: req.body };
         db.collection('Users').updateOne(query, query1 , function(err, res) {
-            if (err) throw err;
+            if (err) {
+                console.log(err);
+                //throw err;
+            }
             console.log(res.result.nModified + " fields updated");
+            res.status(200).json("Success");
         });
     });
     /*
