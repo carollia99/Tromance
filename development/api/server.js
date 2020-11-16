@@ -76,8 +76,8 @@ mongo.connect(function (err) {
             })
     });
 
-    app.post('/updateprofile', (req, res, next) => {
-        const query = { 'Users': req.body.username};
+    app.post('/updateprofile', (req, response, next) => {
+        const query = { 'username': req.body.username};
         const query1 = { $set: req.body };
         db.collection('Users').updateOne(query, query1 , function(err, res) {
             if (err) {
@@ -85,7 +85,7 @@ mongo.connect(function (err) {
                 //throw err;
             }
             console.log(res.result.nModified + " fields updated");
-            res.status(200).json("Success");
+            response.status(200).json("Success");
         });
     });
     /*
