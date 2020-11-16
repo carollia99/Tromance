@@ -1,10 +1,8 @@
 exports.sortUsers = function(userList, toCompare) {
-    var scores = {};
-    var username = toCompare['username'];
     for (user of userList) {
-        scores[user['username']] = exports.getCorrelation(toCompare, user);
+        user['score'] = exports.getCorrelation(toCompare, user) * 100 / 4;
     }
-    return userList.sort((user1, user2) => scores[user2['username']] - scores[user1['username']]);
+    return userList.sort((user1, user2) => user2['score'] - user1['score']);
 }
 
 var compatibility = [
