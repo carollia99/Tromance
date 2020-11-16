@@ -72,6 +72,9 @@ mongo.connect(function (err) {
             .toArray() //returns users as array
             //promise
             .then((result) => {
+                if (result.length <= 0) {
+                    return response.status(404).json("Fail");
+                }
                 response.status(200).json(result[0]);
             })
             .catch((error) => {
