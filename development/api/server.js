@@ -17,6 +17,7 @@ const password = 'Carol1234';
 const uri = `mongodb+srv://carol:${password}@cluster0.8rd9p.mongodb.net/?retryWrites=true&w=majority`;
 const mongo = new MongoClient(uri, {useUnifiedTopology: true});
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

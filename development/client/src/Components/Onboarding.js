@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Onboarding.css';
+import axios from 'axios';
 
 class Onboarding extends Component {
     constructor() {
@@ -41,6 +42,10 @@ class Onboarding extends Component {
         else if((this.state.email).substr(this.state.email.length - 7) != 'usc.edu'){
             return this.setState({ error: 'Please enter a valid USC email.' });
         }
+        axios.post('http://localhost:5000/api/users/register', {username: this.state.email, password: '123123'})
+            .then(result => {                
+                console.log(result.data);            
+            });
         return this.setState({ error: '', stage: 'bio' });
     }
     handleBioSubmit(evt) {
