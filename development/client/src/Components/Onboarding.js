@@ -53,7 +53,7 @@ class Onboarding extends Component {
     }
     handleBioSubmit(evt) {
         evt.preventDefault();
-        axios.post('http://localhost:5000/updateprofile', {username: this.state.email, first: this.state.fname, last: this.state.lname, age: this.state.age, bio: this.state.bio})
+        axios.post('http://localhost:5000/updateprofile', {username: this.state.email, first: this.state.fname, last: this.state.lname, age: this.state.age, major: this.state.major, bio: this.state.bio})
             .then(result =>{
                 console.log(result.data);
             });
@@ -169,7 +169,7 @@ class Onboarding extends Component {
                             <input type="text" id = "input" data-test="lname" placeholder= {'Last Name'} value={this.state.lname} onChange={this.handleLnameChange} />
                         </div>
                         <div>
-                            <input type="text" id = "input"data-test="phone" placeholder= {'Age'} value={this.state.age} onChange={this.handleAgeChange} />
+                            <input type="text" id = "input"data-test="age" placeholder= {'Age'} value={this.state.age} onChange={this.handleAgeChange} />
                         </div>
                         <div>
                             <input type="text" id = "input" data-test="major" placeholder= {'Major'} value={this.state.major} onChange={this.handleMajorChange} />
