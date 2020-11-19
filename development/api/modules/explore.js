@@ -25,22 +25,22 @@ var compatibility = [
 ]
 
 var pTypes = {
-    "INFP": 0,
-    "ENFP": 1,
-    "INFJ": 2,
-    "ENFJ": 3,
-    "INTJ": 4,
-    "ENTJ": 5,
-    "INTP": 6,
-    "ENTP": 7,
-    "ISFP": 8,
-    "ESFP": 9,
-    "ISTP": 10,
-    "ESTP": 11,
-    "ISFJ": 12,
-    "ESFJ": 13,
-    "ISTJ": 14,
-    "ESTJ": 15
+    "INFP": 0, "Mediator": 0,
+    "ENFP": 1, "Compaigner": 1,
+    "INFJ": 2, "Advocate": 2,
+    "ENFJ": 3, "Protagonist": 3,
+    "INTJ": 4, "Architect": 4,
+    "ENTJ": 5, "Commander": 5,
+    "INTP": 6, "Logician": 6,
+    "ENTP": 7, "Debater": 7,
+    "ISFP": 8, "Adventurer": 8,
+    "ESFP": 9, "Entertainer": 9,
+    "ISTP": 10, "Virtuoso": 10,
+    "ESTP": 11, "Entrepreneur": 11,
+    "ISFJ": 12, "Defender": 12,
+    "ESFJ": 13, "Consul": 13,
+    "ISTJ": 14, "Logistician": 14,
+    "ESTJ": 15, "Executive": 15
 }
 
 exports.getCorrelation = function(user1, user2) {
