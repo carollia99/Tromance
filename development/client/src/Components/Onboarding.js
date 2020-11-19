@@ -32,11 +32,18 @@ class Onboarding extends Component {
         this.handleBioSubmit = this.handleBioSubmit.bind(this);
         this.handlePersonalitySubmit = this.handlePersonalitySubmit.bind(this);
         this.handleImageSubmit = this.handleImageSubmit.bind(this);
+        this.navigateToMatching = this.navigateToMatching.bind(this);
         this.dismissError = this.dismissError.bind(this);
     }
     dismissError() {
         this.setState({ error: '' });
     }
+
+    navigateToMatching() {
+        console.log(this.props.history);
+        this.props.history.push("/match");
+    }
+
     handleEmailSubmit(evt) {
         evt.preventDefault();
         if (!this.state.email) {
@@ -44,6 +51,9 @@ class Onboarding extends Component {
         }
         else if((this.state.email).substr(this.state.email.length - 7) != 'usc.edu'){
             return this.setState({ error: 'Please enter a valid USC email.' });
+        }
+        else if(this.state.password.length < 6) {
+            return this.setState({ error: "Password must be at least 6 characters."});
         }
         axios.post('http://localhost:5000/api/users/register', {username: this.state.email, password: this.state.password})
             .then(result =>{
@@ -70,11 +80,16 @@ class Onboarding extends Component {
     handlePersonalitySubmit(evt) {
         this.setState({
             personality: evt.target.id,
+        }, function() {
+            console.log(this.state.personality);
         });
-        axios.post('http://localhost:5000/updateprofile', {username: this.state.email, personality: this.state.personality})
+        axios.post('http://localhost:5000/updateprofile', {username: this.state.email, personality: evt.target.id})
             .then(result =>{
                 console.log(result.data);
             });
+        console.log(this.props);
+        this.navigateToMatching();
+        localStorage.setItem('currentUsername', this.state.email);
         return this.setState({ stage: 'explore'});
     }
 

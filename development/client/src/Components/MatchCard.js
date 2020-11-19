@@ -33,15 +33,15 @@ export default function MatchCard(props) {
           title="Match"
         />
         <CardContent>
-          <div style={{display: "flex"}}>
-            <Typography gutterBottom variant="h6" component="h2" style={{width: "50%"}}>
+          <div style={{display: "flex", justifyContent: "center"}}>
+            <Typography gutterBottom variant="h6" component="h2" style={{textAlign: "center"}}>
               {props.name + " (" + props.age + ")"}
             </Typography>
-            <Typography gutterBottom variant="h6" style={{width: "50%", color: "#FF6584"}}>
-              {props.matchPercent + " % compatible"}
-            </Typography>
-          </div>
             
+          </div>
+          <Typography gutterBottom variant="h6" style={{color: "#FF6584"}}>
+              {props.matchPercent + " % compatible"}
+          </Typography>
           
           <Typography variant="body2" color="textSecondary" component="p">
             {"Major: " + props.major}
