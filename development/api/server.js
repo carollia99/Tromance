@@ -6,7 +6,9 @@ const passport = require("passport");
 
 const users = require("./routes/api/users");
 
-//const stream = require('getstream');
+const stream = require('getstream');    //These libraries will be used for the notifications/feed
+//const session = require('cookie-session');
+
 //const ObjectID = require('mongodb').ObjectID;
 //const passport = require('passport');
 
@@ -102,6 +104,68 @@ mongo.connect(function (err) {
             response.status(200).json("Success");
         });
     });
+
+    // Adds user "like" or "watch" to Stream feed. Add title to Mongo.
+    //app.post('/itemAction/:username', async (req, res, next) => {  //I changed this line since we are now passing params in the body
+    app.post('/itemAction', async (req, res, next) => {
+        const client = stream.connect('2jj7dn7kmtug',
+            '8bjm9c736g3j348dv2gyab6xsfwxg7ngwxw25as8fbq7a8f6a59zjfm2m4xtkecd',
+            '100554'
+        );
+        const activity = {
+            actor: "timeline",
+            verb: "like",
+            object: "test object",
+            liker: req.body.username, //@Henry changed this line from 'params' to 'body'
+            liked: req.body.liked,  //
+        };
+
+        let timeline;
+        let feed = '';
+
+        try {
+            timeline = client.feed("timeline", activity.liked);
+            await timeline.addActivity(activity);
+            console.log("testing")
+            feed = await timeline.get({limit: 5});
+        } catch (err) {
+            console.error("Stream error " + err);
+            return next(err);
+        }
+        console.log(activity.liker);
+        console.log(activity.liked);
+        console.log(feed);
+        //console.log(`${activity.actor} has just "${activity.verb}-ed" ${activity.object}.`);
+        res.status(200).send("Like Successful.");
+
+        try {
+            await db.collection('Notifications').updateOne(
+                {username: activity.liked},
+                {$addToSet: { 'likes' : activity.liker}},
+            );
+            console.log("Addition to MongoDB successful");
+        } catch (err) {
+            console.error(err);
+            return next(err);
+        }
+
+    });
+
+    app.get('/feed', async (req, res) => {
+        const client = stream.connect(  //Line in question
+            '2jj7dn7kmtug',
+            '8bjm9c736g3j348dv2gyab6xsfwxg7ngwxw25as8fbq7a8f6a59zjfm2m4xtkecd',
+            '100554'
+        );
+        //TODO: resolve undefined username from cookies!
+       // let timeline = client.feed("timeline", req.session.user.username); //line in question - had to change this line since
+        //req.session.user is undefined, or at least idk what it does.
+        let timeline = client.feed("timeline", req.body.username);
+        const feed = await timeline.get({limit: 15});   //line in question
+        console.log(feed);
+        res.status(200).send(feed);
+    });
+
     /*
     app.post('/updateprofile', async (request, response, next) => {
         const client = stream.connect('v2692basaucu',
