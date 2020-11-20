@@ -17,8 +17,7 @@ function Login() {
             <div className="container" style={{padding: "64px", paddingBottom: "0", backgroundColor: "white"}}>
                 <div className="topBar" style={{display: "flex", alignContent: "start", marginLeft: "64px", justifyContent: 'space-between', alignItems: "center"}}>
                     <div style={{display: "flex", alignItems: "center"}}>
-                        <img style={{height: "32px", marginRight: "16px"}} src="/logo.png" alt="image" />
-                        <h1 style={{fontWeight: "bold", margin: 0, color: "#FF6584"}}>Tromance</h1>
+                        <img style={{height: "32px", marginRight: "16px"}} src="/tromance_logo.png" alt="image" />
                     </div>
                     {/* <div style={{display: "flex", alignItems: "center"}}>
                         <div style={{cursor: "pointer", fontSize: "16px", color: "black"}}>Log in</div>
@@ -27,18 +26,15 @@ function Login() {
                     
                 </div>
                 <div className="content" style={{display: "flex", margin: 0, width: "100%", justifyContent: "left"}}>
-                    <div className="textContent" style={{textAlign: "left", width: "40%", margin: "128px"}}>
-                        <div className="headerText" style={{color: "black", fontSize: "42px", fontWeight: "bold", lineHeight: "1.2em", margin: "0.2em 0",}}>
+                    <div className="textContent" style={{textAlign: "left", width: "40%", margin: "64px"}}>
+                        <div className="headerText" style={{color: "black", fontFamily: "Avenir", fontSize: "48px", fontWeight: "bold", lineHeight: "1.2em", marginTop: "80px"}}>
                             Find love on campus
                         </div>
-                        <div className="button" style={{cursor: "pointer", height: "60px", width: "280px", backgroundColor: "#FF6584", display: "flex", justifyContent: "center", alignItems: "center", borderRadius: "10px", marginTop: "48px"}}>
-                            <div onClick={() => history.push("/onboarding")} style={{fontSize: "18px", color: "white"}}>Sign up with USC email</div>
-                        </div>
-                        <div className="subText" style={{fontSize: "18px", marginTop: "16px", width: "280px", textAlign: "center"}}>
-                            Login
+                        <div className="button" style={{cursor: "pointer", height: "48px", width: "280px", backgroundColor: "#FF6584", display: "flex", justifyContent: "center", alignItems: "center", borderRadius: "10px", marginTop: "48px"}}>
+                            <div onClick={() => history.push("/onboarding")} style={{fontSize: "18px", color: "white"}}>Continue with USC email</div>
                         </div>
                     </div>
-                    <img src="/splash_circles.png" style={{height: "480px", zIndex: 2}}/>
+                    <img src="/splash_circles.png" style={{height: "540px", zIndex: 2}}/>
                 </div>
                 
             </div>
