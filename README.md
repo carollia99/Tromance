@@ -40,9 +40,10 @@ After cloning this repository on your machine, enter the directory of the cloned
 ```
 cd ../development/api
 npm install
+nodemon start
+
 cd ../development/client
 npm install
-cd ../development/client
 npm start
 
 ```
