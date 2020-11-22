@@ -44,10 +44,10 @@ const db = [
     }
 ]
 
-let dbState = db
+// let dbState = db
 
 function Matching() {
-    const [matchDb, setMatchDb] = useState(db);
+    const [matchDb, setMatchDb] = useState([]);
 
     useEffect(() => {
         // Update the document title using the browser API
@@ -58,6 +58,9 @@ function Matching() {
         })
         .then(function (response) {
           console.log(response);
+          const matchData = response.data;
+          matchData.sort((a,b) => (a.score > b.score) ? 1 : ((b.score > a.score) ? -1 : 0)); 
+          setMatchDb(response.data);
         //   setProfile(response.data);
         //   setImgUrl(response.data.profilePicture);
         //   setFname(response.data.first);
@@ -78,14 +81,18 @@ function Matching() {
         console.log('You swiped: ' + direction)
       }
       
-      const onCardLeftScreen = (myIdentifier) => {
-        console.log(myIdentifier + ' left the screen')
-        dbState = dbState.filter(match => match.id != myIdentifier)
-        setMatchDb(dbState)
-      }
+    const onCardLeftScreen = (myIdentifier) => {
+    //   console.log(myIdentifier + ' left the screen')
+    //   // let dbState  = matchDb;
+    //   // dbState = dbState.filter(match => match.id != myIdentifier)
+    //   // setMatchDb(dbState)
+    //   console.log("matchdb is ");
+    //   console.log(matchDb);
+      setMatchDb(matchDb => matchDb.filter(match => match.username != myIdentifier));
+    }
 
     return(
-        <div style={{width: "100%", height: "100%"}}>
+        <div style={{width: "100%", height: "100%", backgroundColor: "#d35400"}}>
             <Navbar/>
             {/* <div className="topBar" style={{display: "flex", alignContent: "center", justifyContent: 'center', alignItems: "center", margin: "64px"}}>
                 <div style={{display: "flex", alignItems: "center"}}>
@@ -103,23 +110,26 @@ function Matching() {
                     </TinderCard>
                 </div>
             </div> */}
-            {
-                matchDb.length > 0 && matchDb.map((match, index) => {
-                    // console.log(match);
-                    return <div style={{position: "absolute", left: "50%", transform: "translateX(-50%)"}}>
-                        <TinderCard style={{textAlign: "center", display: "flex", position: "absolute", left: "50%", top: "50%"}} onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen(match.id)} preventSwipe={['top', 'bottom']}>
-                            <MatchCard name={match.first + " " + match.last} age={match.age} major={match.major} image={match.image} matchPercent={match.score}/>
-                        </TinderCard>
-                    </div>
-                })
-            }
+            <div style={{margin: "32px", display: "flex", alignContent: "center", flexDirection: "row"}}>
+                {
+                    matchDb.length > 0 && matchDb.map((match, index) => {
+                        // console.log(match);
+                        return <div style={{position: "absolute", left: "50%", transform: "translateX(-50%)"}}>
+                            <TinderCard style={{textAlign: "center", display: "flex", position: "absolute", left: "50%", top: "50%"}} onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen(match.username)} preventSwipe={['top', 'bottom']}>
+                                <MatchCard name={match.first + " " + match.last} age={match.age} major={match.major} image={match.image} matchPercent={match.score} imageUrl={match.profilePicture}/>
+                            </TinderCard>
+                        </div>
+                    })
+                }
 
-            {
-                matchDb.length == 0 && 
-                    <div>
-                        No more matches remaining.
-                    </div>
-            }
+                {
+                    matchDb.length == 0 && 
+                        <div>
+                            No more matches remaining.
+                        </div>
+                }
+            </div>
+            
         </div>
         
         

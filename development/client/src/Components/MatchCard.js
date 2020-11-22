@@ -29,7 +29,7 @@ export default function MatchCard(props) {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image="require('../../public/1.png')"
+          image={props.imageUrl}
           title="Match"
         />
         <CardContent>

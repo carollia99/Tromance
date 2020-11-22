@@ -19,6 +19,29 @@ function NotificationItem() {
 }
 
 function Notifications() {
+    useEffect(() => {
+      // Update the document title using the browser API
+      const username = localStorage.getItem("currentUsername");
+      console.log(username);
+      axios.get(`http://localhost:5000/feed`, {
+        username: username,
+      })
+      .then(function (response) {
+        console.log(response);
+        const matchData = response.data;
+        matchData.sort((a,b) => (a.score > b.score) ? 1 : ((b.score > a.score) ? -1 : 0)); 
+        setMatchDb(response.data);
+      //   setProfile(response.data);
+      //   setImgUrl(response.data.profilePicture);
+      //   setFname(response.data.first);
+      //   setLname(response.data.last);
+      //   setAge(response.data.age);
+      //   setBio(response.data.bio);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    }, []);
     return(
         <div>
             <Navbar/>

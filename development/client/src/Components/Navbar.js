@@ -5,7 +5,7 @@ import { Bell, User, Home } from 'react-feather';
 function Navbar() {
     const history = useHistory();
     return(
-        <div>
+        <div style={{"backgroundColor": "white"}}>
             <div className="topBar" style={{display: "flex", alignContent: "start", justifyContent: 'space-between', padding: "32px", alignItems: "center"}}>
                 <div style={{display: "flex", alignItems: "center"}}>
                     <img style={{height: "32px", marginRight: "16px"}} src="/logo.png" alt="image" />
