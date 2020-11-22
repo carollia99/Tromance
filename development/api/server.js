@@ -139,6 +139,20 @@ mongo.connect(function (err) {
         res.status(200).send("Like Successful.");
 
         try {
+            const query = {'username': req.body.username};
+            db.collection('Users').find(query)
+                .toArray() //returns users as array
+                //promise
+                .then((result) => {
+                    if (result.length <= 0) {
+                        db.collection("Notifications").insertOne(
+                            {username: activity.liked, likes: []},(res, err)=>{if (err) throw err;}
+                        )
+                    }
+                })
+                .catch((error) => {
+                    response.status(400).send(error.message);
+                });
             await db.collection('Notifications').updateOne(
                 {username: activity.liked},
                 {$addToSet: { 'likes' : activity.liker}},
