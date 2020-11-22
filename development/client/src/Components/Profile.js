@@ -8,6 +8,7 @@ import axios from 'axios';
 import './Onboarding.css';
 
 function Profile() {
+    const history = useHistory();
     const [profile, setProfile] = useState('');
     const [imgUrl, setImgUrl] = useState('');
     const [fname, setFname] = useState('');
@@ -38,9 +39,9 @@ function Profile() {
     }, []);
 
     return(
-        <div>
+        <div style={{width: "100%", height: "100%"}}>
             <Navbar/>
-            <div style={{display: "flex", justifyContent: "center", alignItems: "center", alignContent: "center", flexDirection: "column"}}>
+            <div style={{display: "flex", justifyContent: "center", alignItems: "center", alignContent: "center", flexDirection: "column", marginTop: "32px"}}>
                 <div className = "imageHolder">
                     <img src = {imgUrl} id = "profile_pic"/>
                 </div>
@@ -48,7 +49,7 @@ function Profile() {
                 <Button shape="round" type="default">Edit profile</Button>
                 {/* <div style={{marginTop: "32px"}}>Major: MAJOR</div> */}
                 <div style={{margin: "32px"}}>Bio: {bio}</div>
-                <Button shape="round" type="text" style={{color: "#FF6584"}}>Log out</Button>
+                <Button onClick={() => history.push("/")} shape="round" type="text" style={{color: "#FF6584"}}>Log out</Button>
             </div>
         </div>
     )

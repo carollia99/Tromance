@@ -117,7 +117,7 @@ function Matching() {
     }
 
     return(
-        <div style={{width: "100%", height: "100%", backgroundColor: "#d35400"}}>
+        <div style={{width: "100%", height: "100%", backgroundColor: "#FFCAD4"}}>
             <Navbar/>
             {/* <div className="topBar" style={{display: "flex", alignContent: "center", justifyContent: 'center', alignItems: "center", margin: "64px"}}>
                 <div style={{display: "flex", alignItems: "center"}}>

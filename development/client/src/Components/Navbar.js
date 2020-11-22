@@ -8,8 +8,8 @@ function Navbar() {
         <div style={{"backgroundColor": "white"}}>
             <div className="topBar" style={{display: "flex", alignContent: "start", justifyContent: 'space-between', padding: "32px", alignItems: "center"}}>
                 <div style={{display: "flex", alignItems: "center"}}>
-                    <img style={{height: "32px", marginRight: "16px"}} src="/logo.png" alt="image" />
-                    <h1 style={{fontWeight: "bold", margin: 0, color: "#FF6584", fontSize: 24}}>Tromance</h1>
+                    <img style={{height: "32px", marginRight: "16px", height: "24px"}} src="/tromance_logo.png" alt="image" />
+                    {/* <h1 style={{fontWeight: "bold", margin: 0, color: "#FF6584", fontSize: 24}}>Tromance</h1> */}
                 </div>
                 <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", width: "8%", marginRight: "32px"}}>
                     <Home onClick={() => history.push("/match")} color="#FF6584" size={24} />
