@@ -77,8 +77,33 @@ function Matching() {
         console.log(matchDb);
     }, [matchDb]);
 
-    const onSwipe = (direction) => {
-        console.log('You swiped: ' + direction)
+    const onSwipe = (direction, swipedUsername, swipedImageUrl) => {
+        const currentUser = localStorage.getItem("currentUsername");
+        console.log('You swiped: ' + direction);
+        if(direction === "right") {
+            axios.post(`http://localhost:5000/profile/${currentUser}`, {
+                username: currentUser,
+            })
+            .then(function (response) {
+                const imgUrl = response.data.profilePicture;
+                const body = {
+                    username: currentUser.split("@")[0],
+                    liked: swipedUsername.split("@")[0],
+                    imageUrl: imgUrl
+                };
+                console.log(body);
+                axios.post(`http://localhost:5000/itemAction`, body)
+                .then(function (likeResponse) {
+                    console.log(likeResponse);
+                })
+                .catch(function (likeError) {
+                    console.log(likeError);
+                });
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        }
       }
       
     const onCardLeftScreen = (myIdentifier) => {
@@ -115,7 +140,7 @@ function Matching() {
                     matchDb.length > 0 && matchDb.map((match, index) => {
                         // console.log(match);
                         return <div style={{position: "absolute", left: "50%", transform: "translateX(-50%)"}}>
-                            <TinderCard style={{textAlign: "center", display: "flex", position: "absolute", left: "50%", top: "50%"}} onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen(match.username)} preventSwipe={['top', 'bottom']}>
+                            <TinderCard style={{textAlign: "center", display: "flex", position: "absolute", left: "50%", top: "50%"}} onSwipe={(dir) => onSwipe(dir, match.username, match.profilePicture)} onCardLeftScreen={() => onCardLeftScreen(match.username)} preventSwipe={['top', 'bottom']}>
                                 <MatchCard name={match.first + " " + match.last} age={match.age} major={match.major} image={match.image} matchPercent={match.score} imageUrl={match.profilePicture}/>
                             </TinderCard>
                         </div>

@@ -112,12 +112,14 @@ mongo.connect(function (err) {
             '8bjm9c736g3j348dv2gyab6xsfwxg7ngwxw25as8fbq7a8f6a59zjfm2m4xtkecd',
             '100554'
         );
+
         const activity = {
             actor: "timeline",
             verb: "like",
             object: "test object",
             liker: req.body.username, //@Henry changed this line from 'params' to 'body'
-            liked: req.body.liked,  //
+            liked: req.body.liked,
+            likerProfilePic: req.body.imageUrl //
         };
 
         let timeline;
@@ -132,37 +134,43 @@ mongo.connect(function (err) {
             console.error("Stream error " + err);
             return next(err);
         }
-        console.log(activity.liker);
-        console.log(activity.liked);
-        console.log(feed);
+        // console.log(activity.liker);
+        // console.log(activity.liked);
+        // console.log(feed);
         //console.log(`${activity.actor} has just "${activity.verb}-ed" ${activity.object}.`);
-        res.status(200).send("Like Successful.");
 
         try {
-            const query = {'username': req.body.username};
-            db.collection('Users').find(query)
+            const query = {'username': req.body.liked};
+            db.collection('Notifications').find(query)
                 .toArray() //returns users as array
                 //promise
                 .then((result) => {
                     if (result.length <= 0) {
                         db.collection("Notifications").insertOne(
-                            {username: activity.liked, likes: []},(res, err)=>{if (err) throw err;}
+                            {username: activity.liked, likes: []},(res, err)=>{if (err) console.log(err);}
                         )
+                    }
+                    else {
+                        db.collection('Notifications').updateOne(
+                            {username: activity.liked},
+                            {$addToSet: { 'likes' : activity.liker}},
+                            function(err, res) {
+                                if(err) console.log(err);
+                            }
+                        );
                     }
                 })
                 .catch((error) => {
                     response.status(400).send(error.message);
                 });
-            await db.collection('Notifications').updateOne(
-                {username: activity.liked},
-                {$addToSet: { 'likes' : activity.liker}},
-            );
+
             console.log("Addition to MongoDB successful");
+            res.status(200).send("Like Successful.");
         } catch (err) {
             console.error(err);
-            return next(err);
+            res.status(500).send("Error occurred: " + err);
         }
-
+        
     });
 
     app.get('/feed', async (req, res) => {
@@ -171,10 +179,13 @@ mongo.connect(function (err) {
             '8bjm9c736g3j348dv2gyab6xsfwxg7ngwxw25as8fbq7a8f6a59zjfm2m4xtkecd',
             '100554'
         );
+        console.log("running endpoint");
+        console.log(req);
+        console.log(req.query.username);
         //TODO: resolve undefined username from cookies!
        // let timeline = client.feed("timeline", req.session.user.username); //line in question - had to change this line since
         //req.session.user is undefined, or at least idk what it does.
-        let timeline = client.feed("timeline", req.body.username);
+        let timeline = client.feed("timeline", req.query.username);
         const feed = await timeline.get({limit: 15});   //line in question
         console.log(feed);
         res.status(200).send(feed);
